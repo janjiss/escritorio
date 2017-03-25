@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <title><%= assigns[:meta_title] %></title>
+    <meta name="description" content="<%= assigns[:meta_description] %>" />
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="shortcut icon" href="<%= theme_asset_path "favicon.ico"%>">
+
+    <link rel="stylesheet" type="text/css" href="<%= theme_asset_path "/css/screen.css" %>">
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400" />
+</head>
+<body>
+  <div class="site-wrapper">
+    <%= render @view_module, @view_template, assigns %>
+
+    <footer class="site-footer clearfix">
+      <section class="copyright"><a href="<%= assigns[:blog][:url] %>"><%= assigns[:blog][:title] %></a> &copy; 2017</section>
+      <section class="poweredby">Published with <span style="color:red;">&#10084;</span> <a href="https://ghost.org">Escritorio</a></section>
+    </footer>
+  </div>
+
+  <script type="text/javascript" src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+  <script type="text/javascript" src="<%= theme_asset_path "js/jquery.fitvids.js" %>"></script>
+  <script type="text/javascript" src="<%= theme_asset_path "js/index.js" %>"></script>
+</body>
+</html>
