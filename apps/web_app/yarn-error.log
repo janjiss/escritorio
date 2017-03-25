@@ -1,0 +1,51 @@
+Arguments: 
+  /Users/janjiss/.nvm/versions/node/v6.9.1/bin/node /usr/local/bin/yarn install
+
+PATH: 
+  /Users/janjiss/.nvm/versions/node/v6.9.1/bin:/Users/janjiss/.rbenv/shims:/Users/janjiss/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/Applications/Postgres.app/Contents/Versions/latest/bin:/Users/janjiss/.yarn/bin
+
+Yarn version: 
+  0.16.1
+
+Node version: 
+  6.9.1
+
+Platform: 
+  darwin x64
+
+npm manifest: 
+  {
+    "repository": {},
+    "license": "MIT",
+    "scripts": {
+      "deploy": "brunch build --production",
+      "watch": "brunch watch --stdin"
+    },
+    "dependencies": {
+      "phoenix": "file:../../deps/phoenix",
+      "phoenix_html": "file:../../deps/phoenix_html"
+    },
+    "devDependencies": {
+      "babel-brunch": "~6.0.0",
+      "brunch": "2.7.4",
+      "clean-css-brunch": "~2.0.0",
+      "css-brunch": "~2.0.0",
+      "javascript-brunch": "~2.0.0",
+      "uglify-js-brunch": "~2.0.1"
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+bower manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
+
+Trace: 
+  Error: connect ETIMEDOUT 104.16.61.173:443
+      at Object.exports._errnoException (util.js:1026:11)
+      at exports._exceptionWithHostPort (util.js:1049:20)
+      at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1085:14)
