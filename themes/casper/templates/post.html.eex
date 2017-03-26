@@ -1,6 +1,6 @@
-<header class="main-header post-head <% if !assigns[:post].image do %> no-cover<% end %>" <% if assigns[:post].image do %> style="background-image: url(<%= assigns[:post].image %>)" <% end %>>
-  <nav class="main-nav <% if assigns[:post].image do %> overlay <% end %> clearfix">
-    <% if assigns[:blog].logo do %>
+<header class="main-header post-head <%= if !assigns[:post].image do %> no-cover" <% else %>" style=\"background-image: url(<%= assigns[:post].image %>)\""<% end %>> 
+  <nav class="main-nav <%= if assigns[:post].image do %> overlay <% end %> clearfix">
+    <%= if assigns[:blog].logo do %>
       <a class="blog-logo" href="<%= assigns[:blog].url %>"><img src="<%= assigns[:blog].logo %>" alt="<%= assigns[:blog].title %>"/>
     <% end %>
   </nav>
@@ -21,7 +21,7 @@
 
   <footer class="post-footer">
 
-    <% if assigns[:post].author.image_url do %>
+    <%= if assigns[:post].author.image_url do %>
       <figure class="author-image">
         <a class="img" href="<%= assigns[:post].author.image_url %>" style="background-image: url(<%= assigns[:post].author.image_url %>)"><span class="hidden"><% assigns[:post].author.name %>'s Picture</span></a>
       </figure>
@@ -30,14 +30,14 @@
     <section class="author">
       <h4><a href="<%= assigns[:post].author.url %>"><%= assigns[:post].author.name %></a></h4>
 
-      <% if assigns[:post].author.bio do %>
+      <%= if assigns[:post].author.bio do %>
         <p><%= assigns[:post].author.bio%></p>
       <% else %>
         <p>Read <a href="<%= assigns[:post].author.url %>">more posts</a> by this author.</p>
       <% end %>
       <div class="author-meta">
-        <% if assigns[:post].author.location do %><span class="author-location icon-location"><%= assigns[:post].author.location %></span><% end %>
-        <% if assigns[:post].author.website do %><span class="author-link icon-link"><a href="<%= assigns[:post].author.website %>"><%= assigns[:post].author.website %><</a></span><% end %>
+        <%= if assigns[:post].author.location do %><span class="author-location icon-location"><%= assigns[:post].author.location %></span><% end %>
+        <%= if assigns[:post].author.website do %><span class="author-link icon-link"><a href="<%= assigns[:post].author.website %>"><%= assigns[:post].author.website %><</a></span><% end %>
       </div>
     </section>
 
