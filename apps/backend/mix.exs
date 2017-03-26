@@ -11,6 +11,7 @@ defmodule Backend.Mixfile do
      elixir: "~> 1.4",
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
+     elixirc_paths: elixirc_paths(Mix.env),
      deps: deps()]
   end
 
@@ -22,6 +23,9 @@ defmodule Backend.Mixfile do
     [extra_applications: [:logger, :ecto, :postgrex],
      mod: {Backend.Application, []}]
   end
+
+  defp elixirc_paths(:test), do: ["lib", "test/support"]
+  defp elixirc_paths(_), do: ["lib"]
 
   # Dependencies can be Hex packages:
   #
@@ -40,6 +44,7 @@ defmodule Backend.Mixfile do
     [
       {:ecto, "~> 2.1.4"},
       {:postgrex, ">= 0.0.0"},
+      {:ex_machina, "~> 2.0", only: :test}
     ]
   end
 end

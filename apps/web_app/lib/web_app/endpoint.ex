@@ -7,6 +7,12 @@ defmodule WebApp.Endpoint do
   #
   # You should set gzip to true if you are running phoenix.digest
   # when deploying your static files in production.
+  #
+  #
+  #
+  plug Plug.Static,
+    at: "/uploads", from: Path.expand("../../uploads"), gzip: false
+
   plug Plug.Static,
     at: "/", from: :web_app, gzip: false,
     only: ~w(css fonts images js favicon.ico robots.txt)
@@ -27,7 +33,8 @@ defmodule WebApp.Endpoint do
   plug Plug.Parsers,
     parsers: [:urlencoded, :multipart, :json],
     pass: ["*/*"],
-    json_decoder: Poison
+    json_decoder: Poison,
+    length: 100_000_000
 
   plug Plug.MethodOverride
   plug Plug.Head

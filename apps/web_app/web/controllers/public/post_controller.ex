@@ -24,6 +24,15 @@ defmodule WebApp.Public.PostController do
   end
 
   def posts do
-    Backend.Posts.Service.all
+    Enum.map(Backend.Posts.Service.all, fn(post) ->
+      Map.merge(post, %{author: author(), date: "2017, 03, 3"})
+    end)
+  end
+
+  def author do
+    %{
+      name: "Janis Miezitis",
+      image: nil,
+    }
   end
 end

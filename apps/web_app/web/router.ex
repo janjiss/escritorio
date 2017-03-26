@@ -33,5 +33,7 @@ defmodule WebApp.Router do
 
     get "/posts/:id", Api.PostController, :show
     put "/posts/:id", Api.PostController, :update
+
+    post "/uploads", Api.UploadController, :create
   end
 end

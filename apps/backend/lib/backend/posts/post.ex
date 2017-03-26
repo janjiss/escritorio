@@ -3,17 +3,20 @@ defmodule Backend.Post do
   import Ecto.Changeset
 
   schema "posts" do
-    field :title, :string
-    field :body, :string
+    field :title, :string, default: ""
+    field :body, :string, default: ""
+    field :raw, :map, default: %{}
+    field :excerpt, :string, default: ""
 
     timestamps()
   end
 
   @required_fields ~w()
-  @optional_fields ~w(title body)
+  @optional_fields ~w(title body raw excerpt)
 
 
   def changeset(record, params \\ :empty) do
+    IO.inspect(params)
     record
     |> cast(params, @required_fields, @optional_fields)
   end
