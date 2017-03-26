@@ -11,6 +11,16 @@ defmodule WebApp.Public.PostController do
     )
   end
 
+  def show(conn, %{ "id" => id }) do
+    html conn, Phoenix.View.render_to_string(
+      WebApp.Public.PostView, "#{WebApp.Theme.name}/templates/post.html",
+      conn: conn,
+      blog: blog(),
+      post: Map.merge(Backend.Posts.Service.one(id), %{author: author(), date: "2017, 03, 3", image: nil}),
+      layout: {WebApp.Public.LayoutView, "#{WebApp.Theme.name}/layout/layout.html"}
+    )
+  end
+
   def blog do
     %{
       url: "",
@@ -33,6 +43,11 @@ defmodule WebApp.Public.PostController do
     %{
       name: "Janis Miezitis",
       image: nil,
+      image_url: nil,
+      url: nil,
+      bio: nil,
+      location: nil,
+      website: nil,
     }
   end
 end

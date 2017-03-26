@@ -17,6 +17,7 @@ defmodule WebApp.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", Public.PostController, :index
+    get "/posts/:id", Public.PostController, :show
   end
 
   scope "/admin", WebApp do
