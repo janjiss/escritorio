@@ -13,28 +13,25 @@ defmodule WebApp.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/", WebApp do
+  scope "/", WebApp, as: :public do
     pipe_through :browser # Use the default browser stack
 
     get "/", Public.PostController, :index
-    get "/posts/:id", Public.PostController, :show
+
+    resources "/posts", Public.PostController, only: [:show]
   end
 
-  scope "/admin", WebApp do
+  scope "/admin", WebApp, as: :admin do
     pipe_through :browser # Use the default browser stack
 
-    get "/posts", Admin.PostController, :index
-    get "/posts/new", Admin.PostController, :new
-    get "/posts/:id/edit", Admin.PostController, :edit
+    resources "/posts", Admin.PostController, only: [:index, :edit, :new]
   end
 
   # Other scopes may use custom stacks.
-  scope "/api", WebApp do
+  scope "/api", WebApp, as: :api do
     pipe_through :api
 
-    get "/posts/:id", Api.PostController, :show
-    put "/posts/:id", Api.PostController, :update
-
-    post "/uploads", Api.UploadController, :create
+    resources "/posts", Api.PostController, only: [:show, :update]
+    resources "/posts", Api.UploadController, only: [:create]
   end
 end
