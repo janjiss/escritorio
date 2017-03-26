@@ -1,0 +1,3 @@
+<%= for post <- assigns[:posts] do %>
+  <%= post.title %>
+<% end %>

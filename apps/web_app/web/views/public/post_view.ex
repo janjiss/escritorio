@@ -1,3 +1,3 @@
-defmodule WebApp.PostView do
+defmodule WebApp.Public.PostView do
   use WebApp.DynamicView, root: "../../themes", pattern: "**/templates/*"
 end

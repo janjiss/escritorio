@@ -1,13 +1,13 @@
-defmodule WebApp.PostController do
+defmodule WebApp.Public.PostController do
   use WebApp.Web, :controller
 
   def index(conn, _params) do
     html conn, Phoenix.View.render_to_string(
-      WebApp.PostView, "#{WebApp.Theme.name}/templates/posts.html",
+      WebApp.Public.PostView, "#{WebApp.Theme.name}/templates/posts.html",
       conn: conn,
       blog: blog(),
       posts: posts(),
-      layout: {WebApp.LayoutView, "#{WebApp.Theme.name}/layout/layout.html"}
+      layout: {WebApp.Public.LayoutView, "#{WebApp.Theme.name}/layout/layout.html"}
     )
   end
 

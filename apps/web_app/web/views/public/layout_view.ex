@@ -1,4 +1,4 @@
-defmodule WebApp.LayoutView do
+defmodule WebApp.Public.LayoutView do
   use WebApp.DynamicView, root: "../../themes", pattern: "**/layout/*"
 
   def theme_asset_path(path) do

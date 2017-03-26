@@ -1,0 +1,4 @@
+<div id="editor" data-post-id="<%= assigns[:post].id %>">
+
+</div>
+<script>require("web/static/js/admin/editor.jsx")</script>

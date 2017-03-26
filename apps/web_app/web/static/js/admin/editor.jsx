@@ -25,19 +25,12 @@ class EscritorioEditor extends Component {
   }
 
   componentDidMount = () => {
-    if(this.state.postId) {
-      Api.fetch(editorElement.dataset.postId, (editorState, post) => {
-        this.setState({
-          editorState: editorState
-        })
-        this.onChange(editorState)
+    Api.fetch(editorElement.dataset.postId, (editorState, post) => {
+      this.setState({
+        editorState: editorState
       })
-    } else {
-      Api.create(this.state.editorState, (postId) => {
-        window.history.replaceState('Post', 'Hello', `/admin/posts/${postId}`);
-        this.setState({ postId: postId })
-      })
-    }
+      this.onChange(editorState)
+    })
   }
 
   getLatestState = () => {

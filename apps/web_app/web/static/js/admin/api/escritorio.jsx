@@ -11,20 +11,8 @@ export default class Escritorio {
         }
       })
       .then((post) => {
-        const editorState = Raw.deserialize(JSON.parse(post.raw), { terse: true })
+        const editorState = Raw.deserialize(post.raw, { terse: true })
         onSuccess(editorState, post)
-      })
-  }
-
-  create = (state, onSuccess) => {
-    fetch('/api/posts', { method: "POST", headers: { "Content-Type": "application/json" }, body: this.prepData(state) })
-      .then((response) => {
-        if(response.ok) {
-          return response.json()
-        }
-      })
-      .then((post) => {
-        onSuccess(post.id)
       })
   }
 
@@ -64,10 +52,12 @@ export default class Escritorio {
     const body = HTMLSerializer.serialize(updatedState)
 
     const payload = {
-      title: title.text,
-      raw: raw,
-      body: body,
-      excerpt: excerpt ? excerpt.text : ""
+      post: {
+        title: title.text,
+        raw: raw,
+        body: body,
+        excerpt: excerpt ? excerpt.text : ""
+      }
     };
 
     return JSON.stringify(payload)
