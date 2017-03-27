@@ -1,6 +1,6 @@
 # Escritorio
 
-** Escritorio (Writing desk, Spanish) is a publishing platform that allows you to focus on writing. Our goal is to proved the best possible experience of writing on the web without any bells and whistles. 
+Escritorio (Writing desk, Spanish) is a publishing platform that allows you to focus on writing. Our goal is to proved the best possible experience of writing on the web without any bells and whistles. 
 
 ## Vision
 
