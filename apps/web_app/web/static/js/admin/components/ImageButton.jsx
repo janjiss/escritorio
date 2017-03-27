@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Escritorio from '../api/escritorio'
 import { Block } from 'slate'
 import { BLOCKS } from '../config'
+import slateFunctions from '../util/slateFunctions'
 
 const Api = new Escritorio
 
@@ -9,63 +10,23 @@ export default class ImageControl extends Component {
   constructor(props) {
     super(props)
     this.state = { value: "" }
-    this.getLatestState = this.props.getLatestState
     this.onChange = this.props.onChange
   }
 
-  getTopMostParent = (document, node) => {
-    const ancestors = document.getAncestors(node.key)
-    if (ancestors.size <= 1) {
-      return node
-    } else {
-      return document.getAncestors(node.key).find((ancestor) => {
-        return ancestor.kind !== 'document'
-      })
-    }
-  }
-
   addImage = (file) => {
-    const reader = new FileReader();
+    const transform = this.props.editorState.transform()
 
-    reader.onloadend = () => {
-      const editorState = this.getLatestState()
-      const { document } = editorState
-      const endBlock = editorState.endBlock
-      const topMostParent = this.getTopMostParent(document, endBlock)
-
-
-      const index = document.nodes.findIndex((value, index) => {
-        return topMostParent.key === value.key
-      })
-
-      const imageBlock = Block.create({
+    slateFunctions.insertBlockAfterEndNode(
+      this.props.editorState,
+      transform,
+      Block.create({
         type: BLOCKS.IMAGE,
         isVoid: true,
-        data: { src: reader.result, inProgress: true }
+        data: { imageData: { rawFile: file } }
       })
+    )
 
-
-      const stateWithTemporaryImage = this.getLatestState().transform()
-        .insertNodeByKey(document.key, index + 1, imageBlock)
-        .collapseToStartOfNextBlock()
-        .focus()
-        .apply()
-
-      const imageKey = stateWithTemporaryImage.focusBlock.key
-
-      this.onChange(stateWithTemporaryImage)
-
-      Api.upload(file, (result) => {
-        const src = result.file
-        const stateWithFinalImage = this.getLatestState()
-          .transform()
-          .setNodeByKey(imageKey, { data: { src: src, inProgress: false } })
-          .apply()
-
-        this.onChange(stateWithFinalImage)
-      })
-    }
-    reader.readAsDataURL(file)
+    this.onChange(transform.apply())
   }
 
   onClick = () => {

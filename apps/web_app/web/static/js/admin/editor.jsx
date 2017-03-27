@@ -5,7 +5,8 @@ import enterPlugin from './plugins/enterPlugin'
 import backspacePlugin from './plugins/backspacePlugin'
 import onSavePlugin from './plugins/onSavePlugin'
 import keyboardShortcuts from './plugins/keyboardShortcuts'
-import onPaste from './plugins/onPaste'
+import onPasteHtml from './plugins/onPasteHtml'
+import onPasteFiles from './plugins/onPasteFiles'
 import ImageButton from './components/ImageButton'
 import HoverMenu from './components/HoverMenu'
 import SoftBreak from 'slate-soft-break'
@@ -47,6 +48,18 @@ class EscritorioEditor extends Component {
     Api.update(postId, editorState)
   }
 
+  plugins = () => {
+    return [
+      backspacePlugin(),
+      enterPlugin(),
+      SoftBreak({ onlyIn: ['code-block'] }),
+      onSavePlugin(this.onSave),
+      onPasteHtml(),
+      onPasteFiles(),
+      keyboardShortcuts()
+    ]
+  }
+
   render = () => {
     return (
       <div>
@@ -63,7 +76,7 @@ class EscritorioEditor extends Component {
         <div className="editable">
           <Editor
             schema={schema}
-            plugins={[backspacePlugin(), enterPlugin(), SoftBreak({ onlyIn: ['code-block'] }), onSavePlugin(this.onSave), onPaste(), keyboardShortcuts()]}
+            plugins={this.plugins()}
             state={this.state.editorState}
             onChange={this.onChange}
             focus={this.focus}

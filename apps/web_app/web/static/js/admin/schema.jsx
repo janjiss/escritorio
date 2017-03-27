@@ -1,16 +1,11 @@
 import { Block } from 'slate'
 import React from 'react'
 import { DEFAULT_BLOCK, BLOCKS, INLINES, MARKS } from './config'
+import ImageBlock from "./blocks/ImageBlock"
 
 const schema = {
   nodes: {
-    [BLOCKS.IMAGE]: (props) => {
-      const { node, state } = props
-      const isFocused = state.selection.hasEdgeIn(node)
-      const src = node.data.get('src')
-      const className = isFocused ? 'active' : null
-      return (<img style={{width: "100%"}} src={src} className={className} {...props.attributes} />)
-    },
+    [BLOCKS.IMAGE]: ImageBlock,
     [INLINES.LINK]: (props) => {
       const { data } = props.node
       return <a {...props.attributes} href={ data.get('url') }>{props.children}</a>

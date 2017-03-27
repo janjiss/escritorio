@@ -1,10 +1,6 @@
 import { Html } from 'slate'
 import { BLOCKS, MARKS, INLINES } from '../config'
 
-import Escritorio from '../api/escritorio'
-
-const Api = new Escritorio
-
 const BLOCK_TAGS = {
   p:          BLOCKS.PARAGRAPH,
   li:         BLOCKS.LIST_ITEM,
@@ -99,7 +95,7 @@ const RULES = [
 
 const serializer = new Html({ rules: RULES })
 
-export default function onPaste() {
+export default function onPasteHtml() {
   return {
     onPaste: (e, data, state) => {
       if (data.type != 'html') return
