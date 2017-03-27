@@ -6,8 +6,14 @@ defmodule WebApp.Api.PostController do
     json conn, %{ id: post.id, raw: post.raw }
   end
 
-  def update(conn, %{ "id" => id, "post" => post }) do
-    updated_post = WebApp.Posts.Service.update(id, post)
-    json conn, %{ id: id, raw: updated_post.raw }
+  def update(conn, %{ "id" => id, "post" => post_params }) do
+    case WebApp.Posts.Service.update(id, post_params) do
+      nil ->
+        conn
+        |> put_status(404)
+        |> json(%{ error: "Not Found" })
+      post ->
+        json conn, %{ id: id, raw: post.raw }
+    end
   end
 end

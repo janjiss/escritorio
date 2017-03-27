@@ -15,9 +15,12 @@ defmodule WebApp.Posts.Queries do
   end
 
   def update(id, params) do
-    post = Repo.get!(Post, id)
-    changeset = Ecto.Changeset.change(post, raw: params["raw"], title: params["title"], body: params["body"], excerpt: params["excerpt"])
-    { :ok, post } = Repo.update(changeset)
-    post
+    case Repo.get(Post, id) do
+      nil -> nil
+      post ->
+        changeset = Ecto.Changeset.change(post, raw: params["raw"], title: params["title"], body: params["body"], excerpt: params["excerpt"])
+        { :ok, updated_post } = Repo.update(changeset)
+        updated_post
+    end
   end
 end

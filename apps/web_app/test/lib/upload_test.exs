@@ -7,6 +7,7 @@ defmodule UploadTest do
       filename: "code",
       path: Path.absname("test/fixtures/test.png")
     }
+
     upload_path = Path.absname("test/uploads")
     WebApp.Upload.upload(file, upload_path)
 
@@ -20,6 +21,7 @@ defmodule UploadTest do
       filename: "code.png",
       path: Path.absname("test/fixtures/test.png")
     }
+
     upload_path = Path.absname("test/uploads")
     WebApp.Upload.upload(file, upload_path)
 
