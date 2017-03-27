@@ -8,6 +8,7 @@ defmodule WebApp do
 
     # Define workers and child supervisors to be supervised
     children = [
+      supervisor(WebApp.Repo, []),
       # Start the endpoint when the application starts
       supervisor(WebApp.Endpoint, []),
       # Start your own worker by calling: WebApp.Worker.start_link(arg1, arg2, arg3)

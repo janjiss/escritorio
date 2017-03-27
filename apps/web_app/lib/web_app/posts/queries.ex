@@ -1,5 +1,5 @@
-defmodule Backend.Posts.Queries do
-  alias Backend.{Repo, Post}
+defmodule WebApp.Posts.Queries do
+  alias WebApp.{Repo, Post}
   import Ecto.Query
 
   def all do
@@ -11,7 +11,7 @@ defmodule Backend.Posts.Queries do
   end
 
   def one(id) do
-    Repo.one!(from(p in Post, where: p.id == ^id))
+    Repo.one(from(p in Post, where: p.id == ^id))
   end
 
   def update(id, params) do

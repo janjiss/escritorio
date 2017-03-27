@@ -1,8 +1,8 @@
-defmodule Backend.Factory do
-  use ExMachina.Ecto, repo: Backend.Repo
+defmodule WebApp.Factory do
+  use ExMachina.Ecto, repo: WebApp.Repo
 
   def post_factory do
-    %Backend.Post{
+    %WebApp.Post{
       title: "Title",
       raw: %{},
       body: "Body",

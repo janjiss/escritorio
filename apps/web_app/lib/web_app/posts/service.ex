@@ -1,6 +1,6 @@
-defmodule Backend.Posts.Service do
-  alias Backend.Posts.Queries
-  alias Backend.Post
+defmodule WebApp.Posts.Service do
+  alias WebApp.Posts.Queries
+  alias WebApp.Post
 
   def all do
     Queries.all

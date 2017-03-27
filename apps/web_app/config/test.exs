@@ -8,3 +8,11 @@ config :web_app, WebApp.Endpoint,
 
 # Print only warnings and errors during test
 config :logger, level: :warn
+
+# Configure your database
+config :web_app, WebApp.Repo,
+  adapter: Ecto.Adapters.Postgres,
+  username: "janjiss",
+  database: "escritorio_test",
+  hostname: "localhost",
+  pool: Ecto.Adapters.SQL.Sandbox

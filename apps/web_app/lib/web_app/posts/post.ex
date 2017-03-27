@@ -1,4 +1,4 @@
-defmodule Backend.Post do
+defmodule WebApp.Post do
   use Ecto.Schema
   import Ecto.Changeset
 

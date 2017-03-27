@@ -1,4 +1,4 @@
-defmodule Backend.Repo.Migrations.AddPosts do
+defmodule WebApp.Repo.Migrations.AddPosts do
   use Ecto.Migration
 
   def change do

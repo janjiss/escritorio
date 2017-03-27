@@ -16,7 +16,7 @@ defmodule WebApp.Public.PostController do
       WebApp.Public.PostView, "#{WebApp.Theme.name}/templates/post.html",
       conn: conn,
       blog: blog(),
-      post: Map.merge(Backend.Posts.Service.one(id), %{author: author(), date: "2017, 03, 3", image: nil}),
+      post: Map.merge(WebApp.Posts.Service.one(id), %{author: author(), date: "2017, 03, 3", image: nil}),
       layout: {WebApp.Public.LayoutView, "#{WebApp.Theme.name}/layout/layout.html"}
     )
   end
@@ -34,7 +34,7 @@ defmodule WebApp.Public.PostController do
   end
 
   def posts do
-    Enum.map(Backend.Posts.Service.all, fn(post) ->
+    Enum.map(WebApp.Posts.Service.all, fn(post) ->
       Map.merge(post, %{author: author(), date: "2017, 03, 3"})
     end)
   end

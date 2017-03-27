@@ -5,6 +5,10 @@
 # is restricted to this project.
 use Mix.Config
 
+# General application configuration
+config :web_app,
+  ecto_repos: [WebApp.Repo]
+
 # Configures the endpoint
 config :web_app, WebApp.Endpoint,
   url: [host: "localhost"],
