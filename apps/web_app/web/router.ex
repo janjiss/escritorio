@@ -32,6 +32,6 @@ defmodule WebApp.Router do
     pipe_through :api
 
     resources "/posts", Api.PostController, only: [:show, :update]
-    resources "/posts", Api.UploadController, only: [:create]
+    resources "/uploads", Api.UploadController, only: [:create]
   end
 end
