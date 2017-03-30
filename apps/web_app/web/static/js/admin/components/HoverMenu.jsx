@@ -111,7 +111,8 @@ class HoverMenu extends React.Component {
       if (isList) {
         transform
           .setBlock(isActive ? DEFAULT_NODE : type)
-          .unwrapBlock(type == BLOCKS.ORDERED_LIST ? BLOCKS.UNORDERED_LIST : BLOCKS.ORDERED_LIST)
+          .unwrapBlock()
+          .unwrapBlock()
       }
 
       else {
@@ -120,7 +121,7 @@ class HoverMenu extends React.Component {
       }
     }
 
-    // Handle the extra wrapping required for list buttons.
+    // Handle the extra wrapping required for list items.
     else {
       const isList = this.hasBlock(BLOCKS.LIST_ITEM)
       const isType = editorState.blocks.some((block) => {
@@ -130,11 +131,11 @@ class HoverMenu extends React.Component {
       if (isList && isType) {
         transform
           .setBlock(DEFAULT_NODE)
-          .unwrapBlock(BLOCKS.UNORDERED_LIST)
-          .unwrapBlock(BLOCKS.ORDERED_LIST)
+          .unwrapBlock()
+          .unwrapBlock()
       } else if (isList) {
         transform
-          .unwrapBlock(type == BLOCKS.ORDERED_LIST ? BLOCKS.UNORDERED_LIST : BLOCKS.ORDERED_LIST)
+          .unwrapBlock()
           .wrapBlock(type)
       } else {
         transform
@@ -290,7 +291,7 @@ class HoverMenu extends React.Component {
         menu.style.opacity = 1
         menu.style.top = `${top + scrollY - menu.offsetHeight - 15}px`
         menu.style.left = `${left + scrollX - menu.offsetWidth / 2 + width / 2}px`
-      }, 100);
+      }, 1);
     }
   }
 }
