@@ -10,6 +10,7 @@
     "phoenix_html": "file:../../deps/phoenix_html",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
+    "slate": "^0.19.9",
     "slate-soft-break": "^0.3.0"
   },
   "devDependencies": {
@@ -22,7 +23,7 @@
     "clean-css-brunch": "~2.0.0",
     "css-brunch": "~2.0.0",
     "javascript-brunch": "~2.0.0",
-    "slate": "^0.19.7",
+    "slate": "^0.19.9",
     "uglify-js-brunch": "~2.0.1"
   }
 }

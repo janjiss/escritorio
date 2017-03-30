@@ -2851,13 +2851,9 @@ slash@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/slash/-/slash-1.0.0.tgz#c41f2f6c39fc16d1cd17ad4b5d896114ae470d55"
 
-slate-soft-break:
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/slate-soft-break/-/slate-soft-break-0.3.0.tgz#3d28dea9e0aa4783ddcea785ff5db7277214d65f"
-
-slate@^0.19.7:
-  version "0.19.7"
-  resolved "https://registry.yarnpkg.com/slate/-/slate-0.19.7.tgz#62bf572275478fbff27d9ab55e6db1c9941e5562"
+slate:
+  version "0.19.9"
+  resolved "https://registry.yarnpkg.com/slate/-/slate-0.19.9.tgz#2ad69fc1acded4e728d5233d8f78e12075724ccd"
   dependencies:
     cheerio "^0.22.0"
     debug "^2.3.2"
@@ -2872,6 +2868,10 @@ slate@^0.19.7:
     react-portal "^3.0.0"
     selection-is-backward "^1.0.0"
     type-of "^2.0.1"
+
+slate-soft-break:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/slate-soft-break/-/slate-soft-break-0.3.0.tgz#3d28dea9e0aa4783ddcea785ff5db7277214d65f"
 
 sntp@1.x.x:
   version "1.0.9"
