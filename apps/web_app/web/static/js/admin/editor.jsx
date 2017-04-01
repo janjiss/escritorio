@@ -7,8 +7,8 @@ import onSavePlugin from './plugins/onSavePlugin'
 import keyboardShortcuts from './plugins/keyboardShortcuts'
 import onPasteHtml from './plugins/onPasteHtml'
 import onPasteFiles from './plugins/onPasteFiles'
-import ImageButton from './components/ImageButton'
-import HoverMenu from './components/HoverMenu'
+import hoverMenu from './plugins/hoverMenu'
+import inlineMenu from './plugins/inlineMenu'
 import SoftBreak from 'slate-soft-break'
 import Escritorio from './api/escritorio'
 import schema from './schema'
@@ -52,6 +52,8 @@ class EscritorioEditor extends Component {
     return [
       backspacePlugin(),
       enterPlugin(),
+      inlineMenu(),
+      hoverMenu(),
       SoftBreak({ onlyIn: ['code-block'] }),
       onSavePlugin(this.onSave),
       onPasteHtml(),
@@ -62,27 +64,15 @@ class EscritorioEditor extends Component {
 
   render = () => {
     return (
-      <div>
-        <HoverMenu getLatestState={this.getLatestState} onChange={this.onChange} />
-        <div className="toolbar-wrapper">
-          <div className="toolbar-block">
-            <ul>
-              <li className="image-upload">
-                <ImageButton editorState={this.state.editorState} onChange={this.onChange} getLatestState={this.getLatestState} postId={this.state.postId}/>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div className="editable">
-          <Editor
-            schema={schema}
-            plugins={this.plugins()}
-            state={this.state.editorState}
-            onChange={this.onChange}
-            focus={this.focus}
-          >
-          </Editor>
-        </div> 
+      <div className="editable">
+        <Editor
+          schema={schema}
+          plugins={this.plugins()}
+          state={this.state.editorState}
+          onChange={this.onChange}
+          focus={this.focus}
+        >
+        </Editor>
       </div>
     )
   }

@@ -2,6 +2,19 @@ import Portal from 'react-portal'
 import React from 'react'
 import { DEFAULT_NODE, BLOCKS, MARKS, INLINES } from '../config'
 
+export default function hoverMenu() {
+  return {
+    render: (props, editorState, editor) => {
+      return (
+        <div>
+          { props.children }
+          <HoverMenu {...props} editor={editor} />
+        </div>
+        )
+    }
+  }
+}
+
 const MARK_TYPES = [
   {label: 'Bold', type: MARKS.BOLD, iconClass: 'fa fa-lg fa-bold'},
   {label: 'Italic', type: MARKS.ITALIC, iconClass: 'fa fa-lg fa-italic'},
@@ -24,8 +37,7 @@ class HoverMenu extends React.Component {
   constructor(props) {
     super(props)
     this.state = { menu: false, linkInputActive: false, linkInputValue: "" }
-    this.getLatestState = this.props.getLatestState
-    this.onChange = this.props.onChange
+    this.onChange = this.props.editor.onChange
   }
 
   componentDidMount = () => {
@@ -37,11 +49,11 @@ class HoverMenu extends React.Component {
   }
 
   hasMark = (type) => {
-    return this.getLatestState().marks.some(mark => mark.type == type)
+    return this.props.state.marks.some(mark => mark.type == type)
   }
 
   hasBlock = (type) => {
-    const editorState = this.getLatestState()
+    const editorState = this.props.state
 
     const hasParentOfType = editorState.blocks.some((block) => {
       return !!editorState.document.getClosest(block.key, parent => parent.type == type)
@@ -55,13 +67,13 @@ class HoverMenu extends React.Component {
   }
 
   hasLinks = () => {
-    return this.getLatestState().inlines.some(inline => inline.type == INLINES.LINK)
+    return this.props.state.inlines.some(inline => inline.type == INLINES.LINK)
   }
 
   onClickMarkButton = (e, type) => {
     e.preventDefault()
 
-    const state = this.getLatestState()
+    const state = this.props.state
       .transform()
       .toggleMark(type)
       .focus()
@@ -73,7 +85,7 @@ class HoverMenu extends React.Component {
   onClickLinkButton = (e, type) => {
     e.preventDefault()
 
-    const editorState = this.getLatestState()
+    const editorState = this.props.state
 
     if (this.hasLinks()) {
       this.onChange(
@@ -99,7 +111,7 @@ class HoverMenu extends React.Component {
 
   onClickBlockButton = (e, type) => {
     e.preventDefault()
-    const editorState = this.getLatestState()
+    const editorState = this.props.state
     const { document } = editorState
     const transform = editorState.transform()
 
@@ -155,7 +167,7 @@ class HoverMenu extends React.Component {
     if (e.keyCode === 13) {
       e.preventDefault()
 
-      const editorState = this.getLatestState()
+      const editorState = this.props.state
 
       if (e.target.value === '')  {
         this.refs.menu.style.display = 'block'
@@ -260,7 +272,7 @@ class HoverMenu extends React.Component {
 
   updateMenu = () => {
     const { menu, linkInputActive } = this.state
-    const editorState = this.getLatestState()
+    const editorState = this.props.state
     if (!menu) return
 
     if ((editorState.isBlurred || editorState.isCollapsed) && !linkInputActive ) {
@@ -276,8 +288,8 @@ class HoverMenu extends React.Component {
     if (!linkInputActive) {
 
       // This is a hack that I don't know how to fix at the moment
-      // If not for setTimeout, it fails to grab current coordinates
-      // of rect
+      // If not for setTimeout, it fails to grab coordinates of
+      // selection rect
       setTimeout(function(){
         const selection = window.getSelection()
         const range = selection.getRangeAt(0)
@@ -295,5 +307,3 @@ class HoverMenu extends React.Component {
     }
   }
 }
-
-export default HoverMenu
