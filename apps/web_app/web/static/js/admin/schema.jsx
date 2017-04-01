@@ -1,14 +1,14 @@
 import { Block } from 'slate'
 import React from 'react'
 import { DEFAULT_BLOCK, BLOCKS, INLINES, MARKS } from './config'
-import ImageBlock from "./blocks/ImageBlock"
+import ImageBlock from './blocks/ImageBlock'
 
 const schema = {
   nodes: {
     [BLOCKS.IMAGE]: ImageBlock,
     [INLINES.LINK]: (props) => {
       const { data } = props.node
-      return <a {...props.attributes} href={ data.get('url') }>{props.children}</a>
+      return <a {...props.attributes} href={data.get('url')}>{props.children}</a>
     },
     [BLOCKS.PARAGRAPH]: (props) => { return <p {...props.attributes}>{props.children}</p> },
     [BLOCKS.CODE_BLOCK]: (props) => { return <pre {...props.attributes}>{props.children}</pre> },
@@ -42,13 +42,13 @@ const schema = {
       match: (node) => {
         return node.kind === 'document'
       },
-        validate: (document) => {
-          return document.nodes.size ? null : true
-        },
-        normalize: (transform, document) => {
-          const block = Block.create(DEFAULT_BLOCK)
-          transform.insertNodeByKey(document.key, 0, block)
-        }
+      validate: (document) => {
+        return document.nodes.size ? null : true
+      },
+      normalize: (transform, document) => {
+        const block = Block.create(DEFAULT_BLOCK)
+        transform.insertNodeByKey(document.key, 0, block)
+      }
     },
 
     // Rule to always have first block as title block
@@ -61,7 +61,7 @@ const schema = {
         return firstNode && firstNode.type == BLOCKS.TITLE ? null : firstNode
       },
       normalize: (transform, document, firstNode) => {
-        transform.setBlock({type: BLOCKS.TITLE})
+        transform.setBlock({ type: BLOCKS.TITLE })
       }
     },
 
@@ -124,7 +124,7 @@ const schema = {
           return node.type === previousNode.type
         })
 
-        if ( joinableNode ) {
+        if (joinableNode) {
           const previousNode = document.getPreviousSibling(joinableNode.key)
           return { previousNode, joinableNode }
         }

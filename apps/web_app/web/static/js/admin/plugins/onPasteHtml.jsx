@@ -2,26 +2,26 @@ import { Html } from 'slate'
 import { BLOCKS, MARKS, INLINES } from '../config'
 
 const BLOCK_TAGS = {
-  p:          BLOCKS.PARAGRAPH,
-  li:         BLOCKS.LIST_ITEM,
-  ul:         BLOCKS.UNORDERED_LIST,
-  ol:         BLOCKS.ORDERED_LIST,
-  pre:        BLOCKS.CODE_BLOCK,
-  h1:         BLOCKS.HEADER_ONE,
-  h2:         BLOCKS.HEADER_TWO,
-  h3:         BLOCKS.HEADER_TWO,
-  h4:         BLOCKS.HEADER_TWO,
-  h5:         BLOCKS.HEADER_TWO,
-  h6:         BLOCKS.HEADER_TWO,
+  p: BLOCKS.PARAGRAPH,
+  li: BLOCKS.LIST_ITEM,
+  ul: BLOCKS.UNORDERED_LIST,
+  ol: BLOCKS.ORDERED_LIST,
+  pre: BLOCKS.CODE_BLOCK,
+  h1: BLOCKS.HEADER_ONE,
+  h2: BLOCKS.HEADER_TWO,
+  h3: BLOCKS.HEADER_TWO,
+  h4: BLOCKS.HEADER_TWO,
+  h5: BLOCKS.HEADER_TWO,
+  h6: BLOCKS.HEADER_TWO,
   blockquote: BLOCKS.BLOCKQUOTE
 }
 
 const MARK_TAGS = {
   strong: MARKS.BOLD,
-  b:      MARKS.BOLD,
-  em:     MARKS.ITALIC,
-  u:      MARKS.UNDERLINED,
-  code:   MARKS.CODE
+  b: MARKS.BOLD,
+  em: MARKS.ITALIC,
+  u: MARKS.UNDERLINED,
+  code: MARKS.CODE
 }
 
 const RULES = [
@@ -72,7 +72,7 @@ const RULES = [
 
       return {
         kind: 'block',
-        type: BLOCK.CODE_BLOCK,
+        type: BLOCKS.CODE_BLOCK,
         nodes: next(children)
       }
     }

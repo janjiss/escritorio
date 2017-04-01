@@ -2,10 +2,6 @@ import { Block } from 'slate'
 import { BLOCKS } from '../config'
 import slateFunctions from '../util/slateFunctions'
 
-import Escritorio from '../api/escritorio'
-
-const Api = new Escritorio
-
 export default function onPasteFiles() {
   return {
     onPaste: (e, data, editorState) => {
@@ -20,7 +16,7 @@ export default function onPasteFiles() {
           Block.create({
             type: BLOCKS.IMAGE,
             isVoid: true,
-            data: { imageData: { rawFile: file } }
+            data: { imageData: { rawFile: file }}
           })
         )
       })

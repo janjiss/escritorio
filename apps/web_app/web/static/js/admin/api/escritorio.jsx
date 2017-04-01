@@ -1,12 +1,12 @@
-import { Raw, Plain, State } from 'slate'
-import React from 'react'
+import { Raw } from 'slate'
 import HTMLSerializer from '../serializers/htmlSerializer'
 
 export default class Escritorio {
+
   fetch = (id, onSuccess) => {
     fetch(`/api/posts/${id}`)
       .then((response) => {
-        if(response.ok) {
+        if (response.ok) {
           return response.json()
         }
       })
@@ -17,9 +17,9 @@ export default class Escritorio {
   }
 
   update = (postId, state) => {
-    fetch(`/api/posts/${postId}`, { method: "PUT", headers: { "Content-Type": "application/json" }, body: this.prepData(state) })
+    fetch(`/api/posts/${postId}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: this.prepData(state) })
       .then((response) => {
-        if(response.ok) {
+        if (response.ok) {
           return response.json()
         }
       })
@@ -28,10 +28,10 @@ export default class Escritorio {
   upload = (file, onSuccess) => {
     const data = new FormData()
     data.append('file', file)
-    fetch('/api/uploads', { method: "POST", body: data })
+    fetch('/api/uploads', { method: 'POST', body: data })
       .then((response) => {
-        if(!response.ok) {
-          throw Error(response.json());
+        if (!response.ok) {
+          throw Error(response.json())
         }
         return response.json()
       }).then((body) => {
@@ -54,12 +54,13 @@ export default class Escritorio {
     const payload = {
       post: {
         title: title.text,
-        raw: raw,
-        body: body,
-        excerpt: excerpt ? excerpt.text : ""
+        raw,
+        body,
+        excerpt: excerpt ? excerpt.text : ''
       }
-    };
+    }
 
     return JSON.stringify(payload)
   }
+
 }

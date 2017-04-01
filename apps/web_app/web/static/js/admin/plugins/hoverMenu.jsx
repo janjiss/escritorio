@@ -2,7 +2,7 @@ import Portal from 'react-portal'
 import React from 'react'
 import { DEFAULT_NODE, BLOCKS, MARKS, INLINES } from '../config'
 
-export default function hoverMenu() {
+export default function hoverMenuPlugin() {
   return {
     render: (props, editorState, editor) => {
       return (
@@ -10,34 +10,36 @@ export default function hoverMenu() {
           { props.children }
           <HoverMenu {...props} editor={editor} />
         </div>
-        )
+      )
     }
   }
 }
 
 const MARK_TYPES = [
-  {label: 'Bold', type: MARKS.BOLD, iconClass: 'fa fa-lg fa-bold'},
-  {label: 'Italic', type: MARKS.ITALIC, iconClass: 'fa fa-lg fa-italic'},
-  {label: 'Underline', type: MARKS.UNDERLINED, iconClass: 'fa fa-lg fa-underline'},
-  {label: 'Monospace', type: MARKS.CODE, iconClass: 'fa fa-lg fa-code'},
+  { label: 'Bold', type: MARKS.BOLD, iconClass: 'fa fa-lg fa-bold' },
+  { label: 'Italic', type: MARKS.ITALIC, iconClass: 'fa fa-lg fa-italic' },
+  { label: 'Underline', type: MARKS.UNDERLINED, iconClass: 'fa fa-lg fa-underline' },
+  { label: 'Monospace', type: MARKS.CODE, iconClass: 'fa fa-lg fa-code' },
 ]
 
-const LINK_BUTTON = {label: 'LINK', type: 'link', iconClass: 'fa-lg fa fa-link'}
+const LINK_BUTTON = { label: 'LINK', type: 'link', iconClass: 'fa-lg fa fa-link' }
 
 const BLOCK_TYPES = [
-  {label: 'H1', type: BLOCKS.HEADER_ONE, iconClass: 'fa-lg fa fa-header'},
-  {label: 'H2', type: BLOCKS.HEADER_TWO, iconClass: 'fa fa-header'},
-  {label: 'Blockquote', type: BLOCKS.BLOCKQUOTE, iconClass: 'fa-lg fa fa-quote-right'},
-  {label: 'Code', type: BLOCKS.CODE_BLOCK, iconClass: 'fa-lg fa fa-file-code-o'},
-  {label: 'UL', type: BLOCKS.UNORDERED_LIST, iconClass: 'fa-lg fa fa-list'},
-  {label: 'OL', type: BLOCKS.ORDERED_LIST, iconClass: 'fa-lg fa fa-list-ol'},
+  { label: 'H1', type: BLOCKS.HEADER_ONE, iconClass: 'fa-lg fa fa-header' },
+  { label: 'H2', type: BLOCKS.HEADER_TWO, iconClass: 'fa fa-header' },
+  { label: 'Blockquote', type: BLOCKS.BLOCKQUOTE, iconClass: 'fa-lg fa fa-quote-right' },
+  { label: 'Code', type: BLOCKS.CODE_BLOCK, iconClass: 'fa-lg fa fa-file-code-o' },
+  { label: 'UL', type: BLOCKS.UNORDERED_LIST, iconClass: 'fa-lg fa fa-list' },
+  { label: 'OL', type: BLOCKS.ORDERED_LIST, iconClass: 'fa-lg fa fa-list-ol' },
 ]
 
 class HoverMenu extends React.Component {
+
   constructor(props) {
     super(props)
-    this.state = { menu: false, linkInputActive: false, linkInputValue: "" }
+    this.state = { menu: false, linkInputActive: false, linkInputValue: '' }
     this.onChange = this.props.editor.onChange
+    this.hoverMenu = null
   }
 
   componentDidMount = () => {
@@ -60,7 +62,7 @@ class HoverMenu extends React.Component {
     })
 
     const isSameType = editorState.blocks.some((block) => {
-      return editorState.blocks.some(block => block.type == type)
+      return block.type === type
     })
 
     return hasParentOfType || isSameType
@@ -103,9 +105,9 @@ class HoverMenu extends React.Component {
       this.onChange(blurredState)
 
       this.setState({ linkInputActive: true })
-      this.refs.menu.style.display = 'none'
-      this.refs.linkInput.style.display = 'block'
-      this.refs.linkInput.children[0].focus();
+      this.hoverMenu.style.display = 'none'
+      this.linkInput.style.display = 'block'
+      this.linkInput.children[0].focus()
     }
   }
 
@@ -169,9 +171,9 @@ class HoverMenu extends React.Component {
 
       const editorState = this.props.state
 
-      if (e.target.value === '')  {
-        this.refs.menu.style.display = 'block'
-        this.refs.linkInput.style.display = 'none'
+      if (e.target.value === '') {
+        this.hoverMenu.style.display = 'block'
+        this.linkInput.style.display = 'none'
         this.setState({ linkInputActive: false })
 
         this.onChange(
@@ -185,25 +187,25 @@ class HoverMenu extends React.Component {
       }
 
 
-      this.refs.menu.style.display = 'block'
-      this.refs.linkInput.style.display = 'none'
+      this.hoverMenu.style.display = 'block'
+      this.linkInput.style.display = 'none'
 
       const focusState = editorState
         .transform()
-        .wrapInline({ type: INLINES.LINK, data: { url: e.target.value } })
+        .wrapInline({ type: INLINES.LINK, data: { url: e.target.value }})
         .collapseToEnd()
         .focus()
         .apply()
 
       this.onChange(focusState)
-      this.setState({ linkInputActive: false, linkInputValue: "" })
+      this.setState({ linkInputActive: false, linkInputValue: '' })
     }
   }
 
   onLinkInputBlur = (e) => {
-    this.setState({ linkInputActive: false, linkInputValue: "" })
-    this.refs.menu.style.display = 'block'
-    this.refs.linkInput.style.display = 'none'
+    this.setState({ linkInputActive: false, linkInputValue: '' })
+    this.hoverMenu.style.display = 'block'
+    this.linkInput.style.display = 'none'
   }
 
   onOpen = (portal) => {
@@ -222,15 +224,15 @@ class HoverMenu extends React.Component {
     return (
       <Portal isOpened onOpen={this.onOpen}>
         <div className="menu hover-menu">
-          <div ref="menu" style={{display: "block"}}>
+          <div ref={(hoverMenu) => { this.hoverMenu = hoverMenu }} style={{ display: 'block' }}>
             { MARK_TYPES.map((type) => { return this.renderMarkButton(type) }) }
-            <span style={{paddingLeft: "0px", paddingRight: "5px", fontSize: "20px"}}>|</span>
+            <span style={{ paddingLeft: '0px', paddingRight: '5px', fontSize: '20px' }}>|</span>
             { this.renderLinkButton(LINK_BUTTON) }
-            <span style={{paddingLeft: "0px", paddingRight: "5px", fontSize: "20px"}}>|</span>
+            <span style={{ paddingLeft: '0px', paddingRight: '5px', fontSize: '20px' }}>|</span>
             { BLOCK_TYPES.map((type) => { return this.renderBlockButton(type) }) }
           </div>
-          <div ref="linkInput" style={{display: "none"}} >
-            <input placeholder="Enter link URL" className="textInput" onBlur={this.onLinkInputBlur} onKeyDown={ this.onKeyDownLinkInput } onChange={ this.onChangeLinkInput } value={ this.state.linkInputValue }></input> 
+          <div ref={(linkInput) => { this.linkInput = linkInput }} style={{ display: 'none' }} >
+            <input placeholder="Enter link URL" className="textInput" onBlur={this.onLinkInputBlur} onKeyDown={this.onKeyDownLinkInput} onChange={this.onChangeLinkInput} value={this.state.linkInputValue} />
           </div>
         </div>
       </Portal>
@@ -243,7 +245,7 @@ class HoverMenu extends React.Component {
 
     return (
       <span key={button.type} className="button" onMouseDown={onMouseDown} data-active={isActive}>
-        <i className={button.iconClass} aria-hidden="true"></i>
+        <i className={button.iconClass} aria-hidden="true" />
       </span>
     )
   }
@@ -254,7 +256,7 @@ class HoverMenu extends React.Component {
 
     return (
       <span key={button.type} className="button" onMouseDown={onMouseDown} data-active={isActive}>
-        <i className={button.iconClass} aria-hidden="true"></i>
+        <i className={button.iconClass} aria-hidden="true" />
       </span>
     )
   }
@@ -265,7 +267,7 @@ class HoverMenu extends React.Component {
 
     return (
       <span key={button.type} className="button" onMouseDown={onMouseDown} data-active={isActive}>
-        <i className={button.iconClass} aria-hidden="true"></i>
+        <i className={button.iconClass} aria-hidden="true" />
       </span>
     )
   }
@@ -275,7 +277,7 @@ class HoverMenu extends React.Component {
     const editorState = this.props.state
     if (!menu) return
 
-    if ((editorState.isBlurred || editorState.isCollapsed) && !linkInputActive ) {
+    if ((editorState.isBlurred || editorState.isCollapsed) && !linkInputActive) {
       menu.style = null
       return
     }
@@ -286,11 +288,10 @@ class HoverMenu extends React.Component {
     }
 
     if (!linkInputActive) {
-
       // This is a hack that I don't know how to fix at the moment
       // If not for setTimeout, it fails to grab coordinates of
       // selection rect
-      setTimeout(function(){
+      setTimeout(() => {
         const selection = window.getSelection()
         const range = selection.getRangeAt(0)
         const rect = range.getBoundingClientRect()
@@ -303,7 +304,8 @@ class HoverMenu extends React.Component {
         menu.style.opacity = 1
         menu.style.top = `${top + scrollY - menu.offsetHeight - 15}px`
         menu.style.left = `${left + scrollX - menu.offsetWidth / 2 + width / 2}px`
-      }, 1);
+      }, 1)
     }
   }
+
 }

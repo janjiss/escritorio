@@ -4,7 +4,7 @@ export default function backspacePlugin() {
   return {
     onKeyDown: (e, data, state) => {
       const { startOffset, focusBlock, isExpanded } = state
-      const previousBlock = state.document.getPreviousBlock(focusBlock.key);
+      const previousBlock = state.document.getPreviousBlock(focusBlock.key)
 
       // Ignore if key is not backspace
       if (data.key != 'backspace') return

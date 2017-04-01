@@ -1,4 +1,5 @@
 import { Raw } from 'slate'
+
 const DEFAULT_NODE = 'paragraph'
 
 const BLOCKS = {

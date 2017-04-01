@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
-import { Block, Editor, Raw, Html, Plain } from 'slate'
+import { Editor } from 'slate'
 import enterPlugin from './plugins/enterPlugin'
 import backspacePlugin from './plugins/backspacePlugin'
 import onSavePlugin from './plugins/onSavePlugin'
@@ -14,24 +14,23 @@ import Escritorio from './api/escritorio'
 import schema from './schema'
 import { INITIAL_STATE } from './config'
 
-const Api = new Escritorio
+const Api = new Escritorio()
 
 const editorElement = document.getElementById('editor')
 
 class EscritorioEditor extends Component {
+
   constructor(props) {
     super(props)
     const postId = editorElement.dataset.postId.length <= 0 ? null : editorElement.dataset.postId
-    this.state = { editorState: INITIAL_STATE, postId: postId }
+    this.state = { editorState: INITIAL_STATE, postId }
   }
-
-  componentDidMount = () => {
-    Api.fetch(editorElement.dataset.postId, (editorState, post) => {
-      this.setState({
-        editorState: editorState
-      })
-      this.onChange(editorState)
+  componentDidMount = () => { Api.fetch(editorElement.dataset.postId, (editorState, post) => {
+    this.setState({
+      editorState
     })
+    this.onChange(editorState)
+  })
   }
 
   getLatestState = () => {
@@ -71,14 +70,14 @@ class EscritorioEditor extends Component {
           state={this.state.editorState}
           onChange={this.onChange}
           focus={this.focus}
-        >
-        </Editor>
+        />
       </div>
     )
   }
+
 }
 
 ReactDOM.render(
   <EscritorioEditor />,
   editorElement
-);
+)

@@ -4,7 +4,7 @@ import { MARKS } from '../config'
 export default function keboardShortcuts() {
   return {
     onKeyDown: (e, data, state) => {
-      if ((data.isCmd || data.isCtrl) && data.key === "b") {
+      if ((data.isCmd || data.isCtrl) && data.key === 'b') {
         e.preventDefault()
         return state
           .transform()
@@ -13,7 +13,7 @@ export default function keboardShortcuts() {
           .apply()
       }
 
-      if ((data.isCmd || data.isCtrl) && data.key === "i") {
+      if ((data.isCmd || data.isCtrl) && data.key === 'i') {
         e.preventDefault()
         return state
           .transform()
@@ -22,7 +22,7 @@ export default function keboardShortcuts() {
           .apply()
       }
 
-      if ((data.isCmd || data.isCtrl) && data.key === "u") {
+      if ((data.isCmd || data.isCtrl) && data.key === 'u') {
         e.preventDefault()
         return state
           .transform()
