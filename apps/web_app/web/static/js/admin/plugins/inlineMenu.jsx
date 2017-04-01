@@ -39,20 +39,13 @@ class InlineMenu extends React.Component {
   updatePortal = () => {
     const { state } = this.props
     const { focusBlock } = state
-    if (focusBlock.isEmpty && state.isCollapsed && focusBlock.type === DEFAULT_NODE) {
-      this.openPortal()
-      this.setInlineMenuPosition()
-    } else {
-      this.closePortal()
-    }
+    if (this.isOpened()) { this.setInlineMenuPosition() }
   }
 
-  openPortal = () => {
-    this.inlineMenuPortal.openPortal()
-  }
-
-  closePortal = () => {
-    this.inlineMenuPortal.closePortal()
+  isOpened = () => {
+    const { state } = this.props
+    const { focusBlock } = state
+    return focusBlock.isEmpty && state.isCollapsed && focusBlock.type === DEFAULT_NODE
   }
 
   setInlineMenuPosition = () => {
@@ -73,7 +66,7 @@ class InlineMenu extends React.Component {
 
   render = () => {
     return (
-      <Portal ref={(inlineMenuPortal) => { this.inlineMenuPortal = inlineMenuPortal }}>
+      <Portal isOpened={this.isOpened()}>
         <div ref={(inlineMenu) => { this.inlineMenu = inlineMenu }} className="toolbar-block">
           <ul>
             <li ref={(inlineMenuPlusSymbol) => { this.inlineMenuPlusSymbol = inlineMenuPlusSymbol }}>
