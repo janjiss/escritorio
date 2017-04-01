@@ -1,5 +1,6 @@
 import { Raw } from 'slate'
 import HTMLSerializer from '../serializers/htmlSerializer'
+import 'whatwg-fetch'
 
 export default class Escritorio {
 

@@ -12,7 +12,8 @@
     "react-dom": "^15.4.2",
     "react-portal": "^3.0.0",
     "slate": "^0.19.9",
-    "slate-soft-break": "^0.3.0"
+    "slate-soft-break": "^0.3.0",
+    "whatwg-fetch": "^2.0.3"
   },
   "devDependencies": {
     "babel-brunch": "~6.0.0",

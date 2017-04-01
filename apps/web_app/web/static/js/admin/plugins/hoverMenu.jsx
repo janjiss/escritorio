@@ -278,12 +278,12 @@ class HoverMenu extends React.Component {
     if (!menu) return
 
     if ((editorState.isBlurred || editorState.isCollapsed) && !linkInputActive) {
-      menu.style = null
+      menu.style.opacity = 0
       return
     }
 
     if (editorState.startBlock.key == editorState.document.nodes.first().key) {
-      menu.style = null
+      menu.style.opacity = 0
       return
     }
 
