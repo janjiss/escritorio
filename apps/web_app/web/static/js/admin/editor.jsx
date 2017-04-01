@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom'
 import { Editor } from 'slate'
 import enterPlugin from './plugins/enterPlugin'
 import backspacePlugin from './plugins/backspacePlugin'
-import onSavePlugin from './plugins/onSavePlugin'
 import keyboardShortcuts from './plugins/keyboardShortcuts'
 import onPasteHtml from './plugins/onPasteHtml'
 import onPasteFiles from './plugins/onPasteFiles'
@@ -25,26 +24,31 @@ class EscritorioEditor extends Component {
     const postId = editorElement.dataset.postId.length <= 0 ? null : editorElement.dataset.postId
     this.state = { editorState: INITIAL_STATE, postId }
   }
-  componentDidMount = () => { Api.fetch(editorElement.dataset.postId, (editorState, post) => {
-    this.setState({
-      editorState
+
+  componentDidMount = () => {
+    Api.fetch(editorElement.dataset.postId, (editorState, post) => {
+      this.setState({
+        editorState
+      })
+      this.onChange(editorState)
     })
-    this.onChange(editorState)
-  })
+
+    window.addEventListener("keydown", (e) => {
+      if (e.keyCode == 83 && (navigator.platform.match("Mac") ? e.metaKey : e.ctrlKey)) {
+        e.preventDefault();
+
+        const { postId, editorState } = this.state
+        Api.update(postId, editorState)
+      }
+    }, false);
   }
 
   getLatestState = () => {
     return this.state.editorState
   }
 
-  // On change, update the app's React state with the new editor state.
   onChange = (editorState) => {
     this.setState({ editorState })
-  }
-
-  onSave = () => {
-    const { postId, editorState } = this.state
-    Api.update(postId, editorState)
   }
 
   plugins = () => {
@@ -54,7 +58,6 @@ class EscritorioEditor extends Component {
       inlineMenu(),
       hoverMenu(),
       SoftBreak({ onlyIn: ['code-block'] }),
-      onSavePlugin(this.onSave),
       onPasteHtml(),
       onPasteFiles(),
       keyboardShortcuts()
@@ -63,14 +66,19 @@ class EscritorioEditor extends Component {
 
   render = () => {
     return (
-      <div className="editable">
-        <Editor
-          schema={schema}
-          plugins={this.plugins()}
-          state={this.state.editorState}
-          onChange={this.onChange}
-          focus={this.focus}
-        />
+      <div>
+        <header className="post-edit-menu">
+                     
+        </header>
+        <article className="editable">
+          <Editor
+            schema={schema}
+            plugins={this.plugins()}
+            state={this.state.editorState}
+            onChange={this.onChange}
+            focus={this.focus}
+          />
+        </article>
       </div>
     )
   }

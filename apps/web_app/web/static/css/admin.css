@@ -73,18 +73,17 @@ li {
   margin-right: auto;
 }
 
+.post-edit-menu {
+  width: 100%;
+  box-shadow: 0 1px rgba(99,114,130,0.16);
+  height: 40px;
+}
+
 .editable {
   margin-top: 60px;
   margin-left: auto;
   margin-right: auto;
   width: 65%;
-}
-
-.editable .edit-title {
-  width: 100%;
-  font-size: 40px;
-  line-height: 48px;
-  border-style: none;
 }
 
 .editor-image {
