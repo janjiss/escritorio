@@ -8,6 +8,7 @@ import onPasteHtml from './plugins/onPasteHtml'
 import onPasteFiles from './plugins/onPasteFiles'
 import hoverMenu from './plugins/hoverMenu'
 import inlineMenu from './plugins/inlineMenu'
+import PostSettings from './components/PostSettings'
 import SoftBreak from 'slate-soft-break'
 import Escritorio from './api/escritorio'
 import schema from './schema'
@@ -36,19 +37,18 @@ class EscritorioEditor extends Component {
     window.addEventListener("keydown", (e) => {
       if (e.keyCode == 83 && (navigator.platform.match("Mac") ? e.metaKey : e.ctrlKey)) {
         e.preventDefault();
-
-        const { postId, editorState } = this.state
-        Api.update(postId, editorState)
+        this.onSave()
       }
     }, false);
   }
 
-  getLatestState = () => {
-    return this.state.editorState
-  }
-
   onChange = (editorState) => {
     this.setState({ editorState })
+  }
+
+  onSave = () => {
+    const { postId, editorState } = this.state
+    Api.update(postId, editorState)
   }
 
   plugins = () => {
@@ -67,8 +67,10 @@ class EscritorioEditor extends Component {
   render = () => {
     return (
       <div>
-        <header className="post-edit-menu">
-                     
+        <PostSettings isOpened={ this.state.sidebarOpened }/>
+        <header className="post-edit-menu" >
+          <button onClick={this.onSave}>Save</button>
+          <i className="fa fa-cog" aria-hidden="true" onClick={this.toggleSidebar}></i>
         </header>
         <article className="editable">
           <Editor

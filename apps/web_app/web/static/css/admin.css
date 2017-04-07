@@ -297,3 +297,48 @@ img.active {
   border-left: 10px solid transparent;
   border-right: 10px solid transparent;
 }
+
+.post-settings {
+  padding: 20px;
+
+}
+
+.post-settings label {
+  display: block;
+}
+
+.post-settings .image-upload {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  display: flex;
+  min-height: 130px;
+  width: 100%;
+  background: #f6f7f8;
+  border-radius: 4px;
+  color: #808284;
+  text-align: center;
+  cursor: pointer;
+}
+
+.post-settings .image-upload .description {
+  width: 100%;
+  height: 1.4em;
+  text-align: center;
+}
+
+/* Admin index */
+
+.post-index {
+  max-width: 1024px;
+  margin: 0 auto;
+}
+
+.main-menu {
+  float: right;
+}
+
+.clearfix {
+  clear: both;
+}

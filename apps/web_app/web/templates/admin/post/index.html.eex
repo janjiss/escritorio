@@ -1,3 +1,37 @@
-<%= for post <- assigns[:posts] do %>
-  <%= post.title %>
-<% end %>
+<section class="post-index">
+  <header class="pure-menu pure-menu-horizontal">
+    <nav>
+      <ul class="pure-menu-list main-menu">
+        <li class="pure-menu-item pure-menu-selected"><a href="<%= admin_post_path @conn, :new %>" class="pure-menu-link">New story</a></li>
+        <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
+          <a href="#" class="pure-menu-link">Menu</a>
+          <ul class="pure-menu-children">
+            <li class="pure-menu-item"><a href="#" class="pure-menu-link">Profile</a></li>
+            <li class="pure-menu-item"><a href="#" class="pure-menu-link">Blog settings</a></li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="clearfix">
+    <h1>Your stories</h1>
+  </section>
+
+  <section class="posts">
+    <%= for post <- @posts do %>
+      <article class="post">
+        <header>
+          <h2>
+            <a href="<%= admin_post_path @conn, :edit, post.id %>">
+              <%= post.title %>
+            </a>
+          </h2>
+        </header>
+        <section>
+          <%= post.excerpt %>
+        </section>
+      </article>
+    <% end %>
+  </section>
+</section>

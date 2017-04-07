@@ -7,13 +7,13 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Hello WebApp!</title>
+    <title>Escritorio</title>
+    <link rel="stylesheet" href="https://unpkg.com/purecss@0.6.2/build/pure-min.css" integrity="sha384-UQiGfs9ICog+LwheBSRCt1o5cbyKIHbwjWscjemyBMT9YCUMZffs6UqUTd0hObXD" crossorigin="anonymous">
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
     <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
   </head>
 
   <body>
     <%= render @view_module, @view_template, assigns %>
-
   </body>
 </html>
