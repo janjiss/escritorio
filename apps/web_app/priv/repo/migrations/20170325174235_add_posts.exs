@@ -5,8 +5,8 @@ defmodule WebApp.Repo.Migrations.AddPosts do
     create table(:posts) do
       add :title, :string
       add :raw, :map
-      add :body, :string
-      add :excerpt, :string
+      add :body, :text
+      add :excerpt, :text
 
       timestamps()
     end
