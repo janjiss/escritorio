@@ -1,18 +1,18 @@
-<header class="main-header <%= if !assigns[:blog].cover do %>no-cover<% end %>" <%= if assigns[:blog].cover do %> style="background-image: url(<%= assigns[:blog].cover %>)" <% end %>>
+<header class="main-header <%= if !@blog.cover do %>no-cover<% end %>" <%= if @blog.cover do %> style="background-image: url(<%= @blog.cover %>)" <% end %>>
   <nav class="main-nav overlay clearfix">
-    <% if assigns[:blog].logo do %><a class="blog-logo" href="<%= assigns[:blog].url %>"><img src="<%= assigns[:blog].logo %>" alt="<%= assigns[:blog].title %>" /></a> <% end %>
+    <% if @blog.logo do %><a class="blog-logo" href="<%= @blog.url %>"><img src="<%= @blog.logo %>" alt="<%= @blog.title %>" /></a> <% end %>
   </nav>
   <div class="vertical">
     <div class="main-header-content inner">
-      <h1 class="page-title"><%= assigns[:blog].title %></h1>
-      <h2 class="page-description"><%= assigns[:blog].description %></h2>
+      <h1 class="page-title"><%= @blog.title %></h1>
+      <h2 class="page-description"><%= @blog.description %></h2>
     </div>
   </div>
   <a class="scroll-down icon-arrow-left" href="#content" data-offset="-45"><span class="hidden">Scroll Down</span></a>
 </header>
 
 <main id="content" class="content" role="main">
-  <%= for post <- assigns[:posts] do %>
+  <%= for post <- @posts do %>
     <article class="post">
       <header class="post-header">
         <h2 class="post-title"><a href="/posts/<%= post.id %>"><%= post.title %></a></h2>

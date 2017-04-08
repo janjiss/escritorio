@@ -1,7 +1,7 @@
-<header class="main-header post-head <%= if !assigns[:post].image do %> no-cover" <% else %>" style=\"background-image: url(<%= assigns[:post].image %>)\""<% end %>> 
-  <nav class="main-nav <%= if assigns[:post].image do %> overlay <% end %> clearfix">
-    <%= if assigns[:blog].logo do %>
-      <a class="blog-logo" href="<%= assigns[:blog].url %>"><img src="<%= assigns[:blog].logo %>" alt="<%= assigns[:blog].title %>"/>
+<header class="main-header post-head <%= if !@post.image do %> no-cover" <% else %>" style=\"background-image: url(<%= @post.image %>)\""<% end %>> 
+  <nav class="main-nav <%= if @post.image do %> overlay <% end %> clearfix">
+    <%= if @blog.logo do %>
+      <a class="blog-logo" href="<%= @blog.url %>"><img src="<%= @blog.logo %>" alt="<%= @blog.title %>"/>
     <% end %>
   </nav>
 </header>
@@ -10,40 +10,40 @@
 <article class="post">
 
   <header class="post-header">
-    <h1 class="post-title"><%= assigns[:post].title %></h1>
+    <h1 class="post-title"><%= @post.title %></h1>
     <section class="post-meta">
     </section>
   </header>
 
   <section class="post-content">
-    <%= { :safe, assigns[:post].body } %>
+    <%= { :safe, @post.body } %>
   </section>
 
   <footer class="post-footer">
 
-    <%= if assigns[:post].author.image_url do %>
+    <%= if @post.author.image_url do %>
       <figure class="author-image">
-        <a class="img" href="<%= assigns[:post].author.image_url %>" style="background-image: url(<%= assigns[:post].author.image_url %>)"><span class="hidden"><% assigns[:post].author.name %>'s Picture</span></a>
+        <a class="img" href="<%= @post.author.image_url %>" style="background-image: url(<%= @post.author.image_url %>)"><span class="hidden"><% @post.author.name %>'s Picture</span></a>
       </figure>
     <% end %>
 
     <section class="author">
-      <h4><a href="<%= assigns[:post].author.url %>"><%= assigns[:post].author.name %></a></h4>
+      <h4><a href="<%= @post.author.url %>"><%= @post.author.name %></a></h4>
 
-      <%= if assigns[:post].author.bio do %>
-        <p><%= assigns[:post].author.bio%></p>
+      <%= if @post.author.bio do %>
+        <p><%= @post.author.bio%></p>
       <% else %>
-        <p>Read <a href="<%= assigns[:post].author.url %>">more posts</a> by this author.</p>
+        <p>Read <a href="<%= @post.author.url %>">more posts</a> by this author.</p>
       <% end %>
       <div class="author-meta">
-        <%= if assigns[:post].author.location do %><span class="author-location icon-location"><%= assigns[:post].author.location %></span><% end %>
-        <%= if assigns[:post].author.website do %><span class="author-link icon-link"><a href="<%= assigns[:post].author.website %>"><%= assigns[:post].author.website %><</a></span><% end %>
+        <%= if @post.author.location do %><span class="author-location icon-location"><%= @post.author.location %></span><% end %>
+        <%= if @post.author.website do %><span class="author-link icon-link"><a href="<%= @post.author.website %>"><%= @post.author.website %><</a></span><% end %>
       </div>
     </section>
 
     <section class="share">
       <h4>Share this post</h4>
-      <a class="icon-twitter" href="https://twitter.com/intent/tweet?text=<%= assigns[:post].title %>&amp;url=<%= current_url(assigns[:conn]) %>"
+      <a class="icon-twitter" href="https://twitter.com/intent/tweet?text=<%= @post.title %>&amp;url=<%= current_url(assigns[:conn]) %>"
                               onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
                               <span class="hidden">Twitter</span>
       </a>
