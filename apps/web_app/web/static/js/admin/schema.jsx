@@ -13,7 +13,6 @@ const schema = {
     [BLOCKS.PARAGRAPH]: (props) => { return <p {...props.attributes}>{props.children}</p> },
     [BLOCKS.CODE_BLOCK]: (props) => { return <pre {...props.attributes}>{props.children}</pre> },
     [BLOCKS.BLOCKQUOTE]: (props) => { return <blockquote {...props.attributes}>{props.children}</blockquote> },
-    [BLOCKS.TITLE]: (props) => { return <h1 {...props.attributes}>{props.children}</h1> },
     [BLOCKS.HEADER_ONE]: (props) => { return <h1 {...props.attributes}>{props.children}</h1> },
     [BLOCKS.HEADER_TWO]: (props) => { return <h2 {...props.attributes}>{props.children}</h2> },
     [BLOCKS.LIST_ITEM]: (props) => { return <li {...props.attributes}>{props.children}</li> },
@@ -58,17 +57,17 @@ const schema = {
       },
       validate: (document) => {
         const firstNode = document.nodes.first()
-        return firstNode && firstNode.type == BLOCKS.TITLE ? null : firstNode
+        return firstNode && firstNode.type == BLOCKS.HEADER_ONE ? null : firstNode
       },
       normalize: (transform, document, firstNode) => {
-        transform.setBlock({ type: BLOCKS.TITLE })
+        transform.setBlock({ type: BLOCKS.HEADER_ONE })
       }
     },
 
     // Rule to remove any formatting on the title
     {
       match: (node) => {
-        return node.type === BLOCKS.TITLE && node.kind === 'block'
+        return node.type === BLOCKS.HEADER_ONE && node.kind === 'block'
       },
       validate: (titleBlock) => {
         const hasMarks = titleBlock.getMarks().isEmpty()
