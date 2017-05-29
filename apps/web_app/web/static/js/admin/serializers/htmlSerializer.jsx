@@ -7,7 +7,7 @@ const SERIALIZE_RULES = [
     serialize(object, children) {
       if (object.kind != 'block') return
       switch (object.type) {
-        case BLOCKS.IMAGE: return <img src={object.data.get('src')} />
+        case BLOCKS.IMAGE: return <img src={object.data.get('imageData').src} />
         case BLOCKS.PARAGRAPH: return <p>{ children }</p>
         case BLOCKS.BLOCKQUOTE: return <blockquote>{ children }</blockquote>
         case BLOCKS.CODE_BLOCK: return <pre><code>{ children }</code></pre>
