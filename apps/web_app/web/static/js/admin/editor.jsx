@@ -23,7 +23,11 @@ class EscritorioEditor extends Component {
   constructor(props) {
     super(props)
     const postId = editorElement.dataset.postId.length <= 0 ? null : editorElement.dataset.postId
-    this.state = { editorState: INITIAL_STATE, postId }
+    this.state = {
+      editorState: INITIAL_STATE,
+      sidebarOpened: false,
+      postId
+     }
   }
 
   componentDidMount = () => {
@@ -64,13 +68,21 @@ class EscritorioEditor extends Component {
     ]
   }
 
+  closeSidebar = () => {
+    this.setState({sidebarOpened: false})
+  }
+
+  openSidebar = () => {
+    this.setState({sidebarOpened: true})
+  }
+
   render = () => {
     return (
       <div>
-        <PostSettings isOpened={ this.state.sidebarOpened }/>
+        <PostSettings closeSidebar={ this.closeSidebar } openSidebar={ this.openSidebar } sidebarOpened={ this.state.sidebarOpened }/>
         <header className="post-edit-menu" >
           <button onClick={this.onSave}>Save</button>
-          <i className="fa fa-cog" aria-hidden="true" onClick={this.toggleSidebar}></i>
+          <i className="fa fa-cog" aria-hidden="true" onClick={this.openSidebar}></i>
         </header>
         <article className="editable">
           <Editor

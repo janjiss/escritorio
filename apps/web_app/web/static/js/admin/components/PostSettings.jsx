@@ -2,11 +2,28 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import Portal from 'react-portal'
 
+const KEYCODES = {
+  ESCAPE: 27,
+};
+
 export default class PostSettings extends React.Component {
 
   constructor(props) {
     super(props)
-    this.portalRef = null
+    this.menuRef = null
+  }
+
+  componentDidMount() {
+    document.addEventListener('keydown', this.handleKeydown);
+    document.addEventListener('mouseup', this.handleOutsideMouseClick);
+    document.addEventListener('touchstart', this.handleOutsideMouseClick);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('keydown', this.handleKeydown);
+    document.removeEventListener('mouseup', this.handleOutsideMouseClick);
+    document.removeEventListener('touchstart', this.handleOutsideMouseClick);
+    this.props.closeSidebar()
   }
 
   style = () => {
@@ -26,9 +43,9 @@ export default class PostSettings extends React.Component {
 
   render = () => {
     return (
-      <Portal closeOnEsc closeOnOutsideClick isOpened={this.props.isOpened} ref={(ref) => { this.portalRef = ref }}>
-        <aside style={this.style()} >
-          <div className="post-settings"> 
+      <Portal isOpened={this.props.sidebarOpened}>
+        <aside ref={(ref) => { this.menuRef = ref }} style={this.style()} >
+          <div className="post-settings">
             <div className="image-upload">
               <div className="description">Add post image</div>
             </div>
@@ -54,5 +71,21 @@ export default class PostSettings extends React.Component {
         </aside>
       </Portal>
       )
+  }
+
+  handleOutsideMouseClick = (e) => {
+    if (!this.props.sidebarOpened) { return; }
+
+    const root = ReactDOM.findDOMNode(this.menuRef);
+    if (root.contains(e.target) || (e.button && e.button !== 0)) { return; }
+
+    e.stopPropagation();
+    this.props.closeSidebar()
+  }
+
+  handleKeydown = (e) => {
+    if (e.keyCode === KEYCODES.ESCAPE && this.props.sidebarOpened) {
+      this.props.closeSidebar()
+    }
   }
 }
