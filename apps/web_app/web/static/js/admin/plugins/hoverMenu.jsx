@@ -186,7 +186,6 @@ class HoverMenu extends React.Component {
         return
       }
 
-
       this.hoverMenu.style.display = 'block'
       this.linkInput.style.display = 'none'
 
@@ -226,9 +225,9 @@ class HoverMenu extends React.Component {
         <div className="menu hover-menu">
           <div ref={(hoverMenu) => { this.hoverMenu = hoverMenu }} style={{ display: 'block' }}>
             { MARK_TYPES.map((type) => { return this.renderMarkButton(type) }) }
-            <span style={{ paddingLeft: '0px', paddingRight: '5px', fontSize: '20px' }}>|</span>
+            <span className='seperator'>|</span>
             { this.renderLinkButton(LINK_BUTTON) }
-            <span style={{ paddingLeft: '0px', paddingRight: '5px', fontSize: '20px' }}>|</span>
+            <span className='seperator'>|</span>
             { BLOCK_TYPES.map((type) => { return this.renderBlockButton(type) }) }
           </div>
           <div ref={(linkInput) => { this.linkInput = linkInput }} style={{ display: 'none' }} >
@@ -278,34 +277,40 @@ class HoverMenu extends React.Component {
     if (!menu) return
 
     if ((editorState.isBlurred || editorState.isCollapsed) && !linkInputActive) {
-      menu.style.opacity = 0
+      this.hideMenu()
       return
     }
 
     if (editorState.startBlock.key == editorState.document.nodes.first().key) {
-      menu.style.opacity = 0
+      this.hideMenu()
       return
     }
 
     if (!linkInputActive) {
-      // This is a hack that I don't know how to fix at the moment
-      // If not for setTimeout, it fails to grab coordinates of
-      // selection rect
-      setTimeout(() => {
-        const selection = window.getSelection()
-        const range = selection.getRangeAt(0)
-        const rect = range.getBoundingClientRect()
-        const scrollY = window.scrollY
-        const scrollX = window.scrollX
-        const top = rect.top
-        const left = rect.left
-        const width = rect.width
-
-        menu.style.opacity = 1
-        menu.style.top = `${top + scrollY - menu.offsetHeight - 15}px`
-        menu.style.left = `${left + scrollX - menu.offsetWidth / 2 + width / 2}px`
-      }, 1)
+      this.placeMenuAboveSelection()
     }
   }
 
+  placeMenuAboveSelection = () => {
+    const { menu } = this.state
+    // This is a hack that I don't know how to fix at the moment
+    // If not for setTimeout, it fails to grab coordinates of
+    // selection rect
+    setTimeout(() => {
+      this.showMenu()
+      const rect = window.getSelection().getRangeAt(0).getBoundingClientRect()
+      menu.style.top = `${rect.top + window.scrollY - menu.offsetHeight - 15}px`
+      menu.style.left = `${rect.left + window.scrollX - menu.offsetWidth / 2 + rect.width / 2}px`
+    }, 1)
+  }
+
+  showMenu = () => {
+    const { menu } = this.state
+    menu.style.display = 'block'
+  }
+
+  hideMenu = () => {
+    const { menu } = this.state
+    menu.style.display = 'none'
+  }
 }

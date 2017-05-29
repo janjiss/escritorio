@@ -116,10 +116,8 @@ img.active {
   top: -10000px;
   left: -10000px;
   margin-top: -6px;
-  opacity: 0;
   background-color: #222;
   border-radius: 4px;
-  transition: left 0.1s linear, top 0.1s linear;
 }
 
 .hover-menu input {
@@ -164,6 +162,12 @@ img.active {
 
 .hover-menu .button[data-active="true"] {
   color: #fff;
+}
+
+.hover-menu .seperator {
+  padding-left: 0px;
+  padding-right: 5px;
+  font-size: 20px;
 }
 
 :root {
